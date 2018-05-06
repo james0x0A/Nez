@@ -185,6 +185,24 @@ namespace Nez.TiledMaps
 						writer.Write( "polyline" );
 						writePointList( writer, obj, obj.polyline.points );
 					}
+				    else if ( obj.gid != 0 )
+				    {
+                        writer.Write("tile");
+				        var flippedHorizontally = ( obj.gid & FLIPPED_HORIZONTALLY_FLAG ) != 0;
+				        var flippedVertically = ( obj.gid & FLIPPED_VERTICALLY_FLAG ) != 0;
+				        var flippedDiagonally = ( obj.gid & FLIPPED_DIAGONALLY_FLAG ) != 0;
+
+				        if( flippedHorizontally || flippedVertically || flippedDiagonally )
+				        {
+				            // Clear the flags
+				            obj.gid &= ~( FLIPPED_HORIZONTALLY_FLAG | FLIPPED_VERTICALLY_FLAG | FLIPPED_DIAGONALLY_FLAG );
+				        }
+				        writer.Write( obj.gid );
+				        writer.Write( flippedHorizontally );
+				        writer.Write( flippedVertically );
+				        writer.Write( flippedDiagonally );
+				        TiledMapProcessor.logger.LogMessage( "Processed Tile Object" );
+				    }
 					else
 					{
 						writer.Write( "none" );

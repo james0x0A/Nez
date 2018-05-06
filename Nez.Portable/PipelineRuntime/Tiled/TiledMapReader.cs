@@ -249,6 +249,11 @@ namespace Nez.Tiled
 					obj.tiledObjectType = TiledObject.TiledObjectType.Polyline;
 					obj.polyPoints = readVector2Array( reader );
 				}
+                else if ( tiledObjectType == "tile" )
+				{
+				    obj.tiledObjectType = TiledObject.TiledObjectType.Tile;
+				    obj.tile = readTile( reader, tiledMap );
+				}
 				else
 				{
 					obj.tiledObjectType = TiledObject.TiledObjectType.None;
@@ -264,8 +269,19 @@ namespace Nez.Tiled
 			return objectGroup;
 		}
 
+	    private static TiledTile readTile( ContentReader reader, TiledMap tiledMap )
+	    {
+            TiledTile tile = new TiledTile(reader.ReadInt32());
+	        tile.flippedHorizonally = reader.ReadBoolean();
+	        tile.flippedVertically = reader.ReadBoolean();
+	        tile.flippedDiagonally = reader.ReadBoolean();
+	        tile.tileset = tiledMap.getTilesetForTileId( tile.id );
 
-		static Vector2[] readVector2Array( ContentReader reader )
+	        return tile;
+	    }
+
+
+	    static Vector2[] readVector2Array( ContentReader reader )
 		{
 			var pointCount = reader.ReadInt32();
 			var points = new Vector2[pointCount];

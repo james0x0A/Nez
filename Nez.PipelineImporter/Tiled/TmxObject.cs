@@ -31,8 +31,8 @@ namespace Nez.TiledMaps
 		[XmlAttribute( DataType = "int", AttributeName = "rotation" )]
 		public int rotation;
 
-	    [XmlAttribute( DataType = "int", AttributeName = "gid" )]
-	    public int gid;
+	    [XmlAttribute( AttributeName = "gid" )]
+	    public uint gid;
 
 		[XmlAttribute( DataType = "boolean", AttributeName = "visible" )]
 		public bool visible = true;

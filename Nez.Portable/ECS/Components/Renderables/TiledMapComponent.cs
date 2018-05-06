@@ -2,6 +2,7 @@
 using Nez.Tiled;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework.Graphics;
 
 
 namespace Nez
@@ -233,6 +234,13 @@ namespace Nez
 					case TiledObject.TiledObjectType.Polyline:
 						graphics.batcher.drawPoints( renderPosition, obj.polyPoints, group.color, false );
 						break;
+                    case TiledObject.TiledObjectType.Tile:
+                        // TODO: Handle drawing
+                        // The image alignment currently depends on the map orientation.
+                        // In orthogonal orientation it’s aligned to the bottom-left while
+                        // in isometric it’s aligned to the bottom-center.
+                        // http://docs.mapeditor.org/en/stable/reference/tmx-map-format/#object
+                        break;
 					case TiledObject.TiledObjectType.None:
 						graphics.batcher.drawHollowRect( renderPosition.X + obj.x, renderPosition.Y + obj.y, obj.width, obj.height, group.color );
 						break;
